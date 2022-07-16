@@ -8,10 +8,11 @@ public class Operation {
     }
 
     public static void selector(String methodName){
-        int select = Context.getIntScanner().nextInt();
+
+        int select;
 
         if(methodName.equals("start")){
-
+            select = Context.getIntScanner().nextInt();
             try {
                 switch (select) {
                     case 1:
