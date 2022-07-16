@@ -1,14 +1,15 @@
-package com.twitter.base;
+package com.twitter.domain;
 
 import com.twitter.base.entity.BaseEntity;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
 
 import java.util.Set;
 
-@Entity(name = "user_tbl")
+@Entity
+@Table(name = "user_tbl")
 public class User extends BaseEntity<Long> {
 
     @Column(name = "first_name")
@@ -79,4 +80,5 @@ public class User extends BaseEntity<Long> {
     public void setComments(Set<Comment> comments) {
         this.comments = comments;
     }
+
 }
