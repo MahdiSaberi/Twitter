@@ -1,5 +1,6 @@
 package com.twitter.util;
 
+import com.twitter.repository.Impl.TweetRepositoryImpl;
 import com.twitter.repository.Impl.UserRepositoryImpl;
 import jakarta.persistence.EntityManager;
 
@@ -12,6 +13,7 @@ public class Context {
 
     //Repository
     public static UserRepositoryImpl user = getUserRepository();
+    public static TweetRepositoryImpl tweet = getTweetRepository();
 
     public static EntityManager getEntityManager() {
         return entityManager;
@@ -49,5 +51,7 @@ public class Context {
     public static UserRepositoryImpl getUserRepository() {
         return new UserRepositoryImpl();
     }
+
+    public static TweetRepositoryImpl getTweetRepository() {return new TweetRepositoryImpl();}
 
 }

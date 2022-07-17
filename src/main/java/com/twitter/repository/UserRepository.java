@@ -5,4 +5,5 @@ import com.twitter.domain.User;
 
 public interface UserRepository extends BaseRepository<Long, User> {
 
+    User findByUserPass(String username, String password);
 }

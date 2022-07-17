@@ -2,6 +2,10 @@ package com.twitter.util;
 
 import com.twitter.domain.User;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class Operation {
     public static Menu menu = getMenu();
 
@@ -10,56 +14,48 @@ public class Operation {
     }
 
     public static void selector(String methodName){
+        List<String> methods = new ArrayList<>(Arrays.asList("start","userPage"));
+        int chooseMethod = -1;
 
-        int select;
-
-        if(methodName.equals("start")){
-            select = Context.getIntScanner().nextInt();
-            try {
-                switch (select) {
-                    case 1:
-                        menu.login();
-                        break;
-
-                    case 2:
-                        menu.register();
-                        break;
-
-                    case 3:
-                        System.exit(0);
-                }
-            }catch (Exception e){
-                System.out.println("Please Enter valid number");
-                menu.start();
+        for(String s : methods){
+            if(s.equals(methodName)) {
+                chooseMethod = methods.indexOf(s);
+                break;
             }
         }
 
-        else if(methodName.equals("login")){
-
-            System.out.println("Username:");
-            String username = Context.getStringScanner().nextLine();
-
-            System.out.println("Password:");
-            String password = Context.getStringScanner().nextLine();
-
+        switch (chooseMethod){
+            case 0:
+                start();
+            case 1:
+                userPage();
         }
+    }
 
-        else if(methodName.equals("register")){
+    private static void userPage() {
 
-            System.out.println("FirstName:");
-            String firstName = Context.getStringScanner().nextLine();
+    }
 
-            System.out.println("LastName:");
-            String lastName = Context.getStringScanner().nextLine();
+    private static void start() {
+        int select;
+        select = Context.getIntScanner().nextInt();
+        try {
+            switch (select) {
+                case 1:
+                    menu.login();
+                    break;
 
-            System.out.println("Username:");
-            String username = Context.getStringScanner().nextLine();
+                case 2:
+                    menu.register();
+                    break;
 
-            System.out.println("Password:");
-            String password = Context.getStringScanner().nextLine();
-
-            User user = new User(firstName,lastName,username,password);
-            Context.user.save(user);
+                case 3:
+                    System.exit(0);
+            }
+        }catch (Exception e){
+            System.out.println("Please Enter valid number");
+            menu.start();
         }
     }
 }
+

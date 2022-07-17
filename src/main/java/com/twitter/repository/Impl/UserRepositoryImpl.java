@@ -12,6 +12,12 @@ public class UserRepositoryImpl extends BaseRepositoryImpl<Long, User> implement
     }
 
     @Override
+    public User findByUserPass(String username, String password) {
+        return entityManager.createQuery("from User where username=:username and password=:password",User.class).setParameter(
+                "username",username).setParameter("password",password).getSingleResult();
+    }
+
+    @Override
     public Class<User> getEntityClass() {
         return User.class;
     }
