@@ -1,6 +1,7 @@
 package com.twitter.domain;
 
 import com.twitter.base.entity.BaseEntity;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -32,4 +33,5 @@ public class Like extends BaseEntity<Long> {
     public void setTweet(Tweet tweet) {
         this.tweet = tweet;
     }
+
 }

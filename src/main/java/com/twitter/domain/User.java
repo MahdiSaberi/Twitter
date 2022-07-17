@@ -18,7 +18,7 @@ public class User extends BaseEntity<Long> {
     @Column(name = "last_name")
     private String lastName;
 
-    @Column
+    @Column(unique = true)
     private String username;
 
     @Column
