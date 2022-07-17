@@ -1,18 +1,28 @@
 package com.twitter.base.repository;
 
 import com.twitter.base.entity.BaseEntity;
+import jakarta.persistence.EntityTransaction;
 
 import java.io.Serializable;
+import java.util.List;
 
 public interface BaseRepository<ID extends Serializable,T extends BaseEntity> {
 
-    void save(T t);
-
-    T update(T t);
-
-    void delete(T t);
-
-    T find(T t);
+    T save(T e);
 
     T findById(ID id);
+
+    List<T> findAll();
+
+    void deleteById(ID id);
+
+    long countAll();
+
+    void beginTransaction();
+
+    void commitTransaction();
+
+    void rollbackTransaction();
+
+    EntityTransaction getTransaction();
 }

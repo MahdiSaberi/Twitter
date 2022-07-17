@@ -1,5 +1,7 @@
 package com.twitter.util;
 
+import com.twitter.domain.User;
+
 public class Operation {
     public static Menu menu = getMenu();
 
@@ -55,6 +57,9 @@ public class Operation {
 
             System.out.println("Password:");
             String password = Context.getStringScanner().nextLine();
+
+            User user = new User(firstName,lastName,username,password);
+            Context.user.save(user);
         }
     }
 }

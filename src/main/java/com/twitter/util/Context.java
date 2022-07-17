@@ -1,5 +1,6 @@
 package com.twitter.util;
 
+import com.twitter.repository.Impl.UserRepositoryImpl;
 import jakarta.persistence.EntityManager;
 
 import java.util.Scanner;
@@ -8,6 +9,9 @@ public class Context {
     private static EntityManager entityManager = DatabaseUtil.getEntityManager();
     private static Scanner intScanner = new Scanner(System.in);
     private static Scanner stringScanner = new Scanner(System.in);
+
+    //Repository
+    public static UserRepositoryImpl user = getUserRepository();
 
     public static EntityManager getEntityManager() {
         return entityManager;
@@ -26,16 +30,8 @@ public class Context {
         entityManager.getTransaction().rollback();
     }
 
-    public static void isActive(){
-        entityManager.getTransaction().isActive();
-    }
-
-    public static void persist(Object o){
-        entityManager.persist(o);
-    }
-
-    public static Object merge(Object o){
-        return entityManager.merge(o);
+    public static Boolean isActive(){
+        return entityManager.getTransaction().isActive();
     }
 
     public static void close(){
@@ -48,6 +44,10 @@ public class Context {
 
     public static Scanner getStringScanner() {
         return stringScanner;
+    }
+
+    public static UserRepositoryImpl getUserRepository() {
+        return new UserRepositoryImpl();
     }
 
 }

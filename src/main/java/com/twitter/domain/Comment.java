@@ -1,4 +1,4 @@
-package com.twitter.base;
+package com.twitter.domain;
 
 import com.twitter.base.entity.BaseEntity;
 import jakarta.persistence.Column;

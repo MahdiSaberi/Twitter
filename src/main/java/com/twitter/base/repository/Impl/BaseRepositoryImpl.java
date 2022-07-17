@@ -3,55 +3,85 @@ package com.twitter.base.repository.Impl;
 import com.twitter.base.entity.BaseEntity;
 import com.twitter.base.repository.BaseRepository;
 import com.twitter.util.Context;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityTransaction;
 
 import java.io.Serializable;
+import java.util.List;
 
-public class BaseRepositoryImpl <ID extends Serializable, T extends BaseEntity<ID>> implements BaseRepository<ID, T> {
-    @Override
-    public void save(T t) {
+public abstract class BaseRepositoryImpl<ID extends Serializable, T extends BaseEntity<ID>> implements BaseRepository<ID, T> {
+    protected EntityManager entityManager;
 
-        try {
-            Context.begin();
-            Context.persist(t);
-            Context.commit();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-            Context.rollback();
-        } finally {
-            Context.close();
-        }
+    protected Class<T> entityClass;
 
+    public BaseRepositoryImpl() {
+        this.entityManager = Context.getEntityManager();
+        this.entityClass = getEntityClass();
     }
 
-    @Override
-    public T update(T t) {
-        T newEntity;
+    public abstract Class<T> getEntityClass();
 
-        try {
+    @Override
+    public T save(T e) {
+        if (e.getId() == null) {
             Context.begin();
-            newEntity = (T) Context.merge(t);
+            entityManager.persist(e);
             Context.commit();
-        } catch (Exception e) {
-            System.out.println("wrong Entity!");
-            Context.rollback();
-            newEntity = t;
-        } finally {
-            Context.close();
+        } else {
+            Context.begin();
+            e = entityManager.merge(e);
+            Context.commit();
         }
-        return newEntity;    }
-
-    @Override
-    public void delete(T t) {
-
-    }
-
-    @Override
-    public T find(T t) {
-        return null;
+        return e;
     }
 
     @Override
     public T findById(ID id) {
-        return null;
+        return entityManager.find(entityClass, id);
     }
+
+    @Override
+    public List<T> findAll() {
+        return entityManager.createQuery(
+                "select e from " + entityClass.getSimpleName() + " e",
+                entityClass
+        ).getResultList();
+    }
+
+    @Override
+    public void deleteById(ID id) {
+        Context.begin();
+        entityManager.createQuery(
+                "delete from " + entityClass.getSimpleName() + " e where e.id = :id").setParameter("id", id).executeUpdate();
+        Context.commit();
+    }
+
+    @Override
+    public long countAll() {
+        return entityManager.createQuery(
+                "select count(e) from " + entityClass.getSimpleName() + " e", Long.class).getSingleResult();
+    }
+
+    @Override
+    public void beginTransaction() {
+        if (!entityManager.getTransaction().isActive()) {
+            entityManager.getTransaction().begin();
+        }
+    }
+
+    @Override
+    public void commitTransaction() {
+        entityManager.getTransaction().commit();
+    }
+
+    @Override
+    public void rollbackTransaction() {
+        entityManager.getTransaction().rollback();
+    }
+
+    @Override
+    public EntityTransaction getTransaction() {
+        return entityManager.getTransaction();
+    }
+
 }
