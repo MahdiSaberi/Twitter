@@ -19,10 +19,10 @@ public class Tweet extends BaseEntity<Long> {
     @Column
     private Date dateTime;
 
-    @OneToMany(mappedBy = "tweet")
+    @OneToMany(mappedBy = "tweet",cascade = CascadeType.REMOVE)
     private Set<Like> likes;
 
-    @OneToMany(mappedBy = "tweet")
+    @OneToMany(mappedBy = "tweet",cascade = CascadeType.REMOVE)
     private Set<Comment> comments;
 
     public Tweet() {

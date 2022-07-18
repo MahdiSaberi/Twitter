@@ -88,7 +88,7 @@ public class Menu {
             System.out.println("---------------------------------------------");
             System.out.println(t.getContent());
             System.out.println("---------------------------------------------");
-            System.out.println("Date: "+t.getDateTime()+"    "+"Likes: "+t.getLikes().size());
+            System.out.println("Date: "+t.getDateTime()+"    "+"Likes: "+ Context.like.countByTweetId(t.getId()));
             System.out.println("=============================================");
         }
         System.out.println("1.Like\n2.Comment\n3.Back");
@@ -102,11 +102,10 @@ public class Menu {
         Long id = Context.getIntScanner().nextLong();
         Tweet tweet = Context.tweet.findById(id);
 
-        Context.begin();
         Like like = new Like();
         like.setUser(user);
-        tweet.getLikes().add(like);
-        Context.commit();
+        like.setTweet(tweet);
+        Context.like.save(like);
         System.out.println("Liked!");
         userPage(user);
     }
@@ -179,9 +178,13 @@ public class Menu {
         System.out.print("Tweet id:");
         Long id = Context.getIntScanner().nextLong();
         Tweet tweet = Context.tweet.findById(id);
+        List<Like> likes = Context.like.findByTweetId(id);
 
         if(tweet.getUser().getId() == user.getId())
         {
+            for(Like l : likes)
+                Context.like.deleteById(l.getId());
+
             Context.tweet.deleteById(id);
             System.out.println("=====================================");
             System.out.println("Tweet Deleted!");

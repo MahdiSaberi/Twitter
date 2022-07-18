@@ -1,18 +1,16 @@
 package com.twitter.domain;
 
 import com.twitter.base.entity.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.*;
 
-@Entity(name = "like_tbl")
+@Entity
+@Table(name = "like_tbl")
 public class Like extends BaseEntity<Long> {
 
     @OneToOne
     private User user;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)
     private Tweet tweet;
 
     public Like() {

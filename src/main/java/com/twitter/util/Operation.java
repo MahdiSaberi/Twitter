@@ -57,8 +57,9 @@ public class Operation {
 
     private static void userPage(User user) {
         int select;
-        select = Context.getIntScanner().nextInt();
+
         try {
+            select = Context.getIntScanner().nextInt();
             switch (select) {
                 case 1:
                     menu.userMainPage(user);
@@ -84,8 +85,9 @@ public class Operation {
 
     private static void userMainPage(User user) {
         int select;
-        select = Context.getIntScanner().nextInt();
+
         try {
+            select = Context.getIntScanner().nextInt();
             switch (select) {
                 case 1:
                     menu.userAddLike(user);
