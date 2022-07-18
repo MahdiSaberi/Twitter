@@ -10,5 +10,7 @@ public interface LikeRepository extends BaseRepository<Long, Like> {
 
     List<Like> findByTweetId(Long id);
 
+    Like findByUserAndTweetId(Long u_id,Long t_id);
+
     int countByTweetId(Long id);
 }

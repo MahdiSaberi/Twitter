@@ -78,7 +78,7 @@ public class Operation {
                     break;
             }
         }catch (Exception e){
-            System.out.println("Please Enter valid number");
+            System.out.println("Command not Valid!");
             menu.userPage(user);
         }
     }
@@ -103,7 +103,7 @@ public class Operation {
 
             }
         }catch (Exception e){
-            System.out.println("Please Enter valid number");
+            System.out.println("Command not Valid!");
             menu.userMainPage(user);
         }
 
@@ -131,7 +131,7 @@ public class Operation {
                     break;
             }
         }catch (Exception e){
-            System.out.println("Please Enter valid number");
+            System.out.println("Command not Valid!");
             menu.userTweets(user);
         }
     }
@@ -155,7 +155,7 @@ public class Operation {
 
             }
         }catch (Exception e){
-            System.out.println("Please Enter valid number");
+            System.out.println("Command not Valid!");
             menu.userComments(user);
         }
     }
@@ -177,7 +177,7 @@ public class Operation {
                     System.exit(0);
             }
         }catch (Exception e){
-            System.out.println("Please Enter valid number");
+            System.out.println("Command not Valid!");
             menu.start();
         }
     }

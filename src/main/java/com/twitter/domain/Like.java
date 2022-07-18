@@ -10,7 +10,7 @@ public class Like extends BaseEntity<Long> {
     @OneToOne
     private User user;
 
-    @ManyToOne(cascade = CascadeType.REMOVE)
+    @ManyToOne
     private Tweet tweet;
 
     public Like() {
