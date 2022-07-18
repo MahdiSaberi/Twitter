@@ -74,6 +74,7 @@ public class Operation {
 
                 case 4:
                     menu.start();
+                    break;
             }
         }catch (Exception e){
             System.out.println("Please Enter valid number");
@@ -125,6 +126,7 @@ public class Operation {
 
                 case 4:
                     menu.userMainPage(user);
+                    break;
             }
         }catch (Exception e){
             System.out.println("Please Enter valid number");

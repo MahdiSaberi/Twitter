@@ -1,3 +1,4 @@
+import com.twitter.domain.Like;
 import com.twitter.domain.Tweet;
 import com.twitter.domain.User;
 import com.twitter.util.Context;
@@ -10,8 +11,14 @@ import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
-        Context.getEntityManager();
-        Menu menu = new Menu();
-        menu.start();
+//        Context.getEntityManager();
+//        Menu menu = new Menu();
+//        menu.start();
+        User user = Context.user.findById(52L);
+        Tweet tweet = Context.tweet.findById(2L);
+        Like like = new Like();
+        like.setUser(user);
+        like.setTweet(tweet);
+
     }
 }

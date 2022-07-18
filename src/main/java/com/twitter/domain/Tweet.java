@@ -4,6 +4,7 @@ import com.twitter.base.entity.BaseEntity;
 import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -16,7 +17,7 @@ public class Tweet extends BaseEntity<Long> {
     private User user;
 
     @Column
-    private ZonedDateTime dateTime;
+    private Date dateTime;
 
     @OneToMany(mappedBy = "tweet")
     private Set<Like> likes;
@@ -43,11 +44,11 @@ public class Tweet extends BaseEntity<Long> {
         this.user = user;
     }
 
-    public ZonedDateTime getDateTime() {
+    public Date getDateTime() {
         return dateTime;
     }
 
-    public void setDateTime(ZonedDateTime dateTime) {
+    public void setDateTime(Date dateTime) {
         this.dateTime = dateTime;
     }
 

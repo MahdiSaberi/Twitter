@@ -83,11 +83,12 @@ public class Menu {
 
         List<Tweet> tweets = Context.tweet.findAll();
         for(Tweet t : tweets){
+            System.out.println("=============================================");
             System.out.println("id. "+t.getId()+"   |   "+t.getUser().getFirstName()+" "+t.getUser().getLastName()+"   |   "+"@"+t.getUser().getUsername());
-            System.out.println("=============================================");
+            System.out.println("---------------------------------------------");
             System.out.println(t.getContent());
-            System.out.println("=============================================");
-            System.out.println(t.getDateTime()+"    "+"Likes: "+t.getLikes().size());
+            System.out.println("---------------------------------------------");
+            System.out.println("Date: "+t.getDateTime()+"    "+"Likes: "+t.getLikes().size());
             System.out.println("=============================================");
         }
         System.out.println("1.Like\n2.Comment\n3.Back");
@@ -106,6 +107,8 @@ public class Menu {
         like.setUser(user);
         tweet.getLikes().add(like);
         Context.commit();
+        System.out.println("Liked!");
+        userPage(user);
     }
 
     public void userAddComment(User user){
@@ -143,7 +146,7 @@ public class Menu {
         Tweet tweet = new Tweet();
         tweet.setUser(user);
         tweet.setContent(content);
-        tweet.setDateTime(ZonedDateTime.now());
+        tweet.setDateTime(new Date());
         Context.tweet.save(tweet);
         System.out.println("Posted!");
         userPage(user);
