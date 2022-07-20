@@ -127,7 +127,7 @@ public class Operation {
                     break;
 
                 case 4:
-                    menu.userMainPage(user);
+                    menu.userPage(user);
                     break;
             }
         }catch (Exception e){

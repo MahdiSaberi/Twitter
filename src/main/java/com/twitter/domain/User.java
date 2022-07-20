@@ -1,11 +1,9 @@
 package com.twitter.domain;
 
 import com.twitter.base.entity.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -29,6 +27,17 @@ public class User extends BaseEntity<Long> {
 
     @OneToMany(mappedBy = "user")
     private Set<Comment> comments;
+
+    @ElementCollection
+    private List<String> tests;
+
+    public List<String> getTests() {
+        return tests;
+    }
+
+    public void setTests(List<String> tests) {
+        this.tests = tests;
+    }
 
     public User() {
     }

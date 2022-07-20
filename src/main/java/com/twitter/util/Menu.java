@@ -82,13 +82,15 @@ public class Menu {
         System.out.println("=====================================");
 
         List<Tweet> tweets = Context.tweet.findAll();
+        int countLikes;
         for(Tweet t : tweets){
+            countLikes = Context.like.countByTweetId(t.getId());
             System.out.println("=============================================");
             System.out.println("id. "+t.getId()+"   |   "+t.getUser().getFirstName()+" "+t.getUser().getLastName()+"   |   "+"@"+t.getUser().getUsername());
             System.out.println("---------------------------------------------");
             System.out.println(t.getContent());
             System.out.println("---------------------------------------------");
-            System.out.println("Date: "+t.getDateTime()+"    "+"Likes: "+ Context.like.countByTweetId(t.getId()));
+            System.out.println("Date: "+t.getDateTime()+"    "+"Likes: "+ countLikes);
             System.out.println("=============================================");
         }
         System.out.println("1.Like\\Unlike\n2.Comment\n3.Back");
@@ -131,7 +133,20 @@ public class Menu {
     public void userTweets(User user){
         System.out.println("=====================================");
         System.out.println("Manage Tweets | "+"@"+user.getUsername());
-        System.out.println("=====================================");
+        List<Tweet> tweets = Context.tweet.findAll();
+        int countLikes;
+        for(Tweet tweet : tweets) {
+            countLikes = Context.like.countByTweetId(tweet.getId());
+            if (tweet.getUser().equals(user)){
+                System.out.println("=============================================");
+                System.out.println("id: "+tweet.getId());
+                System.out.println("---------------------------------------------");
+                System.out.println(tweet.getContent());
+                System.out.println("---------------------------------------------");
+                System.out.println("Date: "+tweet.getDateTime()+"    "+"Likes: "+ countLikes);
+                System.out.println("=============================================");
+            }
+        }
         System.out.println("1.Add\n2.Edit\n3.Delete\n4.Back");
 
         Operation.selector("userTweets",user);

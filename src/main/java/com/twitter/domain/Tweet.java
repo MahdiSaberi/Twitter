@@ -5,6 +5,7 @@ import jakarta.persistence.*;
 
 import java.time.ZonedDateTime;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -13,16 +14,16 @@ public class Tweet extends BaseEntity<Long> {
     @Column
     private String content;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User user;
 
     @Column
     private Date dateTime;
 
-    @OneToMany(mappedBy = "tweet",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "tweet",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     private Set<Like> likes;
 
-    @OneToMany(mappedBy = "tweet",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "tweet",cascade = CascadeType.REMOVE,fetch = FetchType.EAGER)
     private Set<Comment> comments;
 
     public Tweet() {

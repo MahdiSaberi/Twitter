@@ -19,7 +19,7 @@ public class LikeRepositoryImpl extends BaseRepositoryImpl<Long, Like> implement
     }
 
     @Override
-    public Class<Like> getEntityClass() {
+    public  Class<Like> getEntityClass() {
         return Like.class;
     }
 
