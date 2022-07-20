@@ -56,10 +56,11 @@ public class Operation {
 
 
     private static void userPage(User user) {
-        int select;
+        int select = 0;
 
         try {
             select = Context.getIntScanner().nextInt();
+            System.out.println("Selector:"+select);
             switch (select) {
                 case 1:
                     menu.userMainPage(user);
@@ -78,6 +79,12 @@ public class Operation {
                     break;
             }
         }catch (Exception e){
+            if(select == 1)
+                menu.userMainPage(user);
+
+            else if(select == 2)
+                menu.userTweets(user);
+
             System.out.println("Command not Valid!");
             menu.userPage(user);
         }

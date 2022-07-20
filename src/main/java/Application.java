@@ -12,8 +12,6 @@ import java.util.List;
 
 public class Application {
     public static void main(String[] args) {
-        Context.getEntityManager();
         Context.menu.start();
-        User user = Context.user.findById(1L);
     }
 }

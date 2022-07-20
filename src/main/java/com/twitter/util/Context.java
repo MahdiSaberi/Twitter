@@ -9,7 +9,7 @@ import jakarta.persistence.EntityManager;
 import java.util.Scanner;
 
 public class Context {
-    private static EntityManager entityManager = DatabaseUtil.getEntityManager();
+    public static EntityManager entityManager = DatabaseUtil.getEntityManager();
     public static Menu menu = new Menu();
     private static Scanner intScanner = new Scanner(System.in);
     private static Scanner stringScanner = new Scanner(System.in);

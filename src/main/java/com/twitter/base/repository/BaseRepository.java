@@ -1,6 +1,7 @@
 package com.twitter.base.repository;
 
 import com.twitter.base.entity.BaseEntity;
+import com.twitter.domain.Tweet;
 import jakarta.persistence.EntityTransaction;
 
 import java.io.Serializable;

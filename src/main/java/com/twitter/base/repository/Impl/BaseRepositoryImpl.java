@@ -2,11 +2,15 @@ package com.twitter.base.repository.Impl;
 
 import com.twitter.base.entity.BaseEntity;
 import com.twitter.base.repository.BaseRepository;
+import com.twitter.domain.Tweet;
 import com.twitter.util.Context;
+import com.twitter.util.DatabaseUtil;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityTransaction;
+import jakarta.persistence.criteria.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseRepositoryImpl<ID extends Serializable, T extends BaseEntity<ID>> implements BaseRepository<ID, T> {
@@ -15,7 +19,7 @@ public abstract class BaseRepositoryImpl<ID extends Serializable, T extends Base
     protected Class<T> entityClass;
 
     public BaseRepositoryImpl() {
-        this.entityManager = Context.getEntityManager();
+        this.entityManager = Context.entityManager;
         this.entityClass = getEntityClass();
     }
 
@@ -42,10 +46,18 @@ public abstract class BaseRepositoryImpl<ID extends Serializable, T extends Base
 
     @Override
     public List<T> findAll() {
-        return entityManager.createQuery(
-                "select e from " + entityClass.getSimpleName() + " e",
-                entityClass
-        ).getResultList();
+
+        try {
+            Context.begin();
+            List<T> list = Context.entityManager.createQuery("from " + entityClass.getSimpleName(), entityClass).getResultList();
+            Context.commit();
+
+            return list;
+        }catch (Exception e){
+            findAll();
+        }
+
+        return null;
     }
 
     @Override

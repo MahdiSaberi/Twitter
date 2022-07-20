@@ -5,6 +5,7 @@ import com.twitter.domain.Like;
 import com.twitter.domain.Tweet;
 import com.twitter.domain.User;
 
+import java.sql.ResultSet;
 import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.List;
@@ -82,6 +83,7 @@ public class Menu {
         System.out.println("=====================================");
 
         List<Tweet> tweets = Context.tweet.findAll();
+
         int countLikes;
         for(Tweet t : tweets){
             countLikes = Context.like.countByTweetId(t.getId());
